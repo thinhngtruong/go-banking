@@ -1,0 +1,4 @@
+make: Entering directory `/Users/thinhnguyen/Documents/golang-project'
+docker network create bank-network
+make: Leaving directory `/Users/thinhnguyen/Documents/golang-project'
+ 
