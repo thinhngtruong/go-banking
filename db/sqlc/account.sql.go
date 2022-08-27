@@ -13,7 +13,7 @@ const addAccountBalance = `-- name: AddAccountBalance :one
 UPDATE accounts
 SET balance = balance + $1
 WHERE id = $2
-RETURNING id, owner, balance, currency, created_at
+    RETURNING id, owner, balance, currency, created_at
 `
 
 type AddAccountBalanceParams struct {
@@ -36,12 +36,12 @@ func (q *Queries) AddAccountBalance(ctx context.Context, arg AddAccountBalancePa
 
 const createAccount = `-- name: CreateAccount :one
 INSERT INTO accounts (
-  owner,
-  balance,
-  currency
+    owner,
+    balance,
+    currency
 ) VALUES (
-  $1, $2, $3
-) RETURNING id, owner, balance, currency, created_at
+             $1, $2, $3
+         ) RETURNING id, owner, balance, currency, created_at
 `
 
 type CreateAccountParams struct {
@@ -112,9 +112,9 @@ func (q *Queries) GetAccountForUpdate(ctx context.Context, id int64) (Account, e
 
 const listAccounts = `-- name: ListAccounts :many
 SELECT id, owner, balance, currency, created_at FROM accounts
-WHERE owner = $1
+WHERE owner = $1 or $1 = ''
 ORDER BY id
-LIMIT $2
+    LIMIT $2
 OFFSET $3
 `
 
@@ -157,7 +157,7 @@ const updateAccount = `-- name: UpdateAccount :one
 UPDATE accounts
 SET balance = $2
 WHERE id = $1
-RETURNING id, owner, balance, currency, created_at
+    RETURNING id, owner, balance, currency, created_at
 `
 
 type UpdateAccountParams struct {
