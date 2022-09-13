@@ -1,12 +1,15 @@
 name: Deploy to production
 
 on:
-  push:
+  workflow_run:
+    workflows: [ "Run unit test" ]
     branches: [ master ]
+    types:
+      - completed
 
 jobs:
   build:
-    needs: test
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Build image
     runs-on: ubuntu-latest
 
