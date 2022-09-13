@@ -1,13 +1,13 @@
-DB_URL=postgresql://root:empires@localhost:5432/simple_bank?sslmode=disable
+DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
 
 network:
 	docker network create bank-network
 
 postgres:
-	docker run --name postgres --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=empires -d postgres:14-alpine
+	docker run --name postgres --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14-alpine
 
 mysql:
-	docker run --name mysql8 -p 3306:3306  -e MYSQL_ROOT_PASSWORD=empires -d mysql:8
+	docker run --name mysql8 -p 3306:3306  -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8
 
 createdb:
 	docker exec -it postgres createdb --username=root --owner=root simple_bank
