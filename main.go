@@ -41,7 +41,7 @@ func runGrpcServer(config util.Config, store db.Store) {
 
 	listener, err := net.Listen("tcp", config.GRPCServerAddress)
 	if err != nil {
-		log.Fatal("cannot create listener")
+		log.Fatal("cannot create listener", err)
 	}
 
 	log.Printf("start gRPC server at %s", listener.Addr().String())
